@@ -1,0 +1,18 @@
+1. install initial packages
+
+  {  
+    "@sendgrid/mail",
+    "bcrypt",
+    "braintree",
+    "cors",
+    "dotenv",
+    "express",
+    "express-formidable",
+    "helmet",
+    "jsonwebtoken",
+    "mongoose",
+    "morgan":,
+    "slugify"
+    }
+  
+  
