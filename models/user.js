@@ -26,7 +26,8 @@ const userSchema = new Schema(
     },
     role: {
       type: Number,
-      default: 0,
+      default: 0, 
+      //default is 0 so make a user an admin edit in the database and make it 1
     },
   },
   { timestamps: true,versionKey:false }

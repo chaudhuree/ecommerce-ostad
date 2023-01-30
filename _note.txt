@@ -15,4 +15,50 @@
     "slugify"
     }
   
+"note: do not forget to add token and baseUrl when needed otherwise will have error in postman"
+
+  2. create server
+  3. attatach database (before this must create .env file and add variables)
+
+
+  4. create models
+     a.user.js model for now(default role 0 for normal user 1 for admin[set it manually])
+
+
+  5. create routes --> router.post("/register", register);
+  6. create controllers --> register(req, res) { ... }
+  7. test in postman  (set base url.after registration done we will get a token. then set is also as a variable)
+
+
+  8. while testing in postman the register route a new user will be created with role:0
+  {for making him/her as an admin we will re-edit in database and set role 1}
+  with registration implementation in postman we will also create jwt token. with this
+  token we will be able to log in automatically (it is in pinventory project)
+
+
+  9. create login route and controller
+  10. test in postman (imp: after login is done reset the token variable with new token sothat isLoginCheck and isAdminCheck can use it)
+
+
+  11. create middleware for authentication
+     a.create requireSignin middleware
+     b.create isAdmin middleware
   
+  -in requireSignIn middleware we will check either user is signed in or not.
+  in that middleware we will use jwt token verification.
+  we will send this token through header.authorization
+  (in postman we will send token in header.authorization)
+
+  -in isAdmin middleware we will check either user is admin or not.
+  after requireSignIn middleware this middleware can be called.
+  we will check user role in that middleware.
+  if user role is 1 then he is admin otherwise not.
+
+  12. create isLoginCheck controller
+  13. create isLoginCheck route --> /auth-check
+  14. test in postman (create a get route. and to the header add authorization={{token}})
+
+
+  15. create isAdminCheck controller
+  16. create isAdminCheck route --> /admin-check
+  17. test in postman(create a get route. and to the header add authorization={{token}})

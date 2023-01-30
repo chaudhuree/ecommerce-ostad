@@ -5,7 +5,7 @@ require("dotenv").config();
 const Order =require("../models/order.js");
 
 
-
+//docs: registration
 exports.register = async (req, res) => {
   try {
     // 1. destructure name, email, password from req.body
@@ -51,6 +51,7 @@ exports.register = async (req, res) => {
     console.log(err);
   }
 };
+//docs: login
 
 exports.login = async (req, res) => {
   try {
@@ -92,6 +93,14 @@ exports.login = async (req, res) => {
   }
 };
 
+//docs: login status check
+exports.isLoginCheck=async(req,res)=>{
+  res.json({login:true})
+}
+//docs: admin check
+exports.isAdminCheck=async(req,res)=>{
+  res.json({admin:true})
+}
 exports.secret = async (req, res) => {
   res.json({ currentUser: req.user });
 };

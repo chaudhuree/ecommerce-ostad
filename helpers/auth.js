@@ -16,6 +16,10 @@ exports.hashPassword = (password) => {
   });
 };
 
+//note:
+//here password is the password given to test
+//and hashed is the password stored in the database
+//see auth controller login part in compare section to have clear understanding
 exports.comparePassword = (password, hashed) => {
   return bcrypt.compare(password, hashed);
 };

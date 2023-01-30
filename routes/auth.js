@@ -8,6 +8,8 @@ const { requireSignin, isAdmin } =require("../middlewares/auth.js");
 const {
   register,
   login,
+  isLoginCheck,
+  isAdminCheck,
   secret,
   updateProfile,
   getOrders,
@@ -16,12 +18,8 @@ const {
 
 router.post("/register", register);
 router.post("/login", login);
-router.get("/auth-check", requireSignin, (req, res) => {
-  res.json({ ok: true });
-});
-router.get("/admin-check", requireSignin, isAdmin, (req, res) => {
-  res.json({ ok: true });
-});
+router.get("/auth-check", requireSignin, isLoginCheck);
+router.get("/admin-check", requireSignin, isAdmin,isAdminCheck);
 
 router.put("/profile", requireSignin, updateProfile);
 
