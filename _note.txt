@@ -62,5 +62,3 @@
   15. create isAdminCheck controller
   16. create isAdminCheck route --> /admin-check
   17. test in postman(create a get route. and to the header add authorization={{token}})
-
-  test
