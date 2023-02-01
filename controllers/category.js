@@ -1,6 +1,6 @@
-const Category =require("../models/category.js");
-const Product =require("../models/product.js");
-const slugify =require("slugify");
+const Category = require("../models/category.js");
+const Product = require("../models/product.js");
+const slugify = require("slugify");
 
 // docs: create category
 exports.create = async (req, res) => {
@@ -25,26 +25,43 @@ exports.create = async (req, res) => {
 };
 
 // docs: update category 
+
+// Export the update function
 exports.update = async (req, res) => {
   try {
+    // Destructure the name from the request body
     const { name } = req.body;
-    console.log(req.params)
+
+    // Destructure the categoryId from the request params
     const { categoryId } = req.params;
+
+    // Use the findByIdAndUpdate method from Mongoose to update the category
+    // with the specified categoryId
     const category = await Category.findByIdAndUpdate(
       categoryId,
       {
+        // Update the name and generate the slug from it using the slugify function
         name,
         slug: slugify(name),
       },
-      { new: true }
+      {
+        // Return the updated category, instead of the old one
+        new: true,
+      }
     );
+
+    // Return the updated category as a JSON object in the response
     res.json(category);
   } catch (err) {
+    // Log the error message
     console.log(err);
+
+    // Return a Bad Request response with the error message as a JSON object
     return res.status(400).json(err.message);
   }
 };
 
+//docs: remove category
 exports.remove = async (req, res) => {
   try {
     const removed = await Category.findByIdAndDelete(req.params.categoryId);
@@ -55,6 +72,7 @@ exports.remove = async (req, res) => {
   }
 };
 
+// docs: get all categories
 exports.list = async (req, res) => {
   try {
     const all = await Category.find({});
@@ -64,7 +82,7 @@ exports.list = async (req, res) => {
     return res.status(400).json(err.message);
   }
 };
-
+// docs: read specific category ,find by slug
 exports.read = async (req, res) => {
   try {
     const category = await Category.findOne({ slug: req.params.slug });

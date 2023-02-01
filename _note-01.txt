@@ -20,3 +20,8 @@
    here we will do some validation like if same category exists then we will return
     error message to user.
 
+6.testing in postman
+  header a login token dea dite hobe (req.headers.authorization={{token}})-admin hoite hobe
+  and body te category name dea dite hobe(req.body.name=category name).
+
+>> like this way, do update category,get category and delete category 
