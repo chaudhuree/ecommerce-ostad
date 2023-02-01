@@ -1,0 +1,32 @@
+//here we will work with product realated codes
+
+--> middleware is already created -->>
+create model > create route > create controller
+
+//create model (while testing in postman. must provide token in header)
+1. create Product model
+  name, description thakbe etc 
+  category te category id ObjectId dewa hobe jate populate kora jaite pare 
+  photo ta buffer thakbe 
+
+  here, express-formidable use kora hoyeche pic upload er jonne
+  aita just import kore middleware hisebe call korlei hobe route a.
+  the req.field and req.file a sob data pabo.
+  data send korar time a obossoi form-data dea pathaite hobe.
+
+2. create route:router.post("/product", requireSignin, isAdmin, formidable(), create);
+  formidable() middleware use kora hoyeche
+
+3. create controller: create()
+ //important part comment korai ache 
+
+ //get all products
+
+ 1.create route: router.get("/products", list);
+ 2.create controller: list
+
+ //get specific product by slug 
+  1.create route: router.get("/product/:slug", read);
+  2.create controller: read
+
+**##delete,update,getsingleproduct,getimage all easy. see the controller and postman.

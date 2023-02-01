@@ -1,0 +1,20 @@
+//filter product 
+
+1 body theke duita data nobo, checked and radio.
+checked hocce array of category= ["543423","12234"]
+radio hocce array of price= [0,200]
+
+2 then totalnumber of item in count and pagination which i already know
+
+3 searching is also easy.implemented in business table project
+
+4 related products is a new thing here,
+aikhane body dea category and id pathabo.
+then query korbo like, category dea search but ne mane not equal to this id.
+controller ta r akbar dekhe eshe abr text ta porle beshi easy hobe.
+
+//product by category 
+
+in category controller --> productsByCategory
+in category route --> router.get("/products-by-category/:slug", productsByCategory);
+-> controller has some comments to understand the functionality

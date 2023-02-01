@@ -1,10 +1,10 @@
-const Product =require("../models/product.js");
-const fs =require("fs");
-const slugify =require("slugify");
-const braintree =require("braintree");
+const Product = require("../models/product.js");
+const fs = require("fs");
+const slugify = require("slugify");
+const braintree = require("braintree");
 require("dotenv").config();
-const Order =require("../models/order.js");
-const sgMail =require("@sendgrid/mail");
+const Order = require("../models/order.js");
+const sgMail = require("@sendgrid/mail");
 
 
 sgMail.setApiKey(process.env.SENDGRID_KEY);
@@ -16,19 +16,32 @@ sgMail.setApiKey(process.env.SENDGRID_KEY);
 //   privateKey: process.env.BRAINTREE_PRIVATE_KEY,
 // });
 
+//docs: create product
 exports.create = async (req, res) => {
   try {
-    console.log(req.fields);
-    console.log(req.files);
+    //for only form-data(multipart form data)
+    console.log(req.fields); //other data,name, description, price, category, quantity, shipping
+    console.log(req.files); //photo ,video
     const { name, description, price, category, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
-    console.log("PHOTO========>",photo)
+    console.log("PHOTO========>", photo)
 
-    // validation
-    switch (true) {
+    //note: validation
+
+    switch (true) { //imp:jeta true hobe setai execute korbe.
       case !name?.trim():
         return res.json({ error: "Name is required" });
+      /*
+      example case for name.
+      suppose name diyeche.
+      that means name.trim() true. 
+      !true means false
+      so aita r return korbe na.
+      now jodi name na dey. tahole name.trim() false. !false=true. 
+      so now error ta return korbe
+      */
+
       case !description?.trim():
         return res.json({ error: "Description is required" });
       case !price?.trim():
@@ -47,23 +60,24 @@ exports.create = async (req, res) => {
     const product = new Product({ ...req.fields, slug: slugify(name) });
 
     if (photo) {
-      product.photo.data = fs.readFileSync(photo.path);
+      product.photo.data = fs.readFileSync(photo.path); //product is two line before
       product.photo.contentType = photo.type;
+      //set product photo objects value
     }
 
-    await product.save();
+    await product.save(); //save to database
     res.json(product);
   } catch (err) {
     console.log(err);
     return res.status(400).json(err.message);
   }
 };
-
+//docs: view all data
 exports.list = async (req, res) => {
   try {
     const products = await Product.find({})
-      .populate("category")
-      .select("-photo")
+      .populate("category") // populate kora hoyeche jate category details pawa jay
+      .select("-photo") // photo bade sob data return korbe
       .limit(12)
       .sort({ createdAt: -1 });
 
@@ -73,6 +87,7 @@ exports.list = async (req, res) => {
   }
 };
 
+//docs: see specific products
 exports.read = async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug })
@@ -85,20 +100,21 @@ exports.read = async (req, res) => {
   }
 };
 
+//docs: get photo of a product
 exports.photo = async (req, res) => {
   try {
     const product = await Product.findById(req.params.productId).select(
       "photo"
     );
     if (product.photo.data) {
-      res.set("Content-Type", product.photo.contentType);
+      res.set("Content-Type", product.photo.contentType); //imp
       return res.send(product.photo.data);
     }
   } catch (err) {
     console.log(err);
   }
 };
-
+// docs: remove
 exports.remove = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(
@@ -109,7 +125,7 @@ exports.remove = async (req, res) => {
     console.log(err);
   }
 };
-
+// update
 exports.update = async (req, res) => {
   try {
     // console.log(req.fields);
@@ -123,22 +139,22 @@ exports.update = async (req, res) => {
     // validation
     switch (true) {
       case !name?.trim():
-      return  res.json({ error: "Name is required" });
+        return res.json({ error: "Name is required" });
       case !description?.trim():
-      return  res.json({ error: "Description is required" });
+        return res.json({ error: "Description is required" });
       case !price?.trim():
-      return  res.json({ error: "Price is required" });
+        return res.json({ error: "Price is required" });
       case !category?.trim():
-      return  res.json({ error: "Category is required" });
+        return res.json({ error: "Category is required" });
       case !quantity?.trim():
-      return  res.json({ error: "Quantity is required" });
+        return res.json({ error: "Quantity is required" });
       case !shipping?.trim():
-      return  res.json({ error: "Shipping is required" });
+        return res.json({ error: "Shipping is required" });
       case photo && photo.size > 1000000:
-      return  res.json({ error: "Image should be less than 1mb in size" });
+        return res.json({ error: "Image should be less than 1mb in size" });
     }
 
-   
+
 
     // update product
     const product = await Product.findByIdAndUpdate(
@@ -162,11 +178,11 @@ exports.update = async (req, res) => {
     return res.status(400).json(err.message);
   }
 };
-
+//docs: filter product
 exports.filteredProducts = async (req, res) => {
   try {
-    const { checked, radio } = req.body;
-    
+    const { checked, radio } = req.body; //checked =array of category, radio= array containing two value , min and max--> it is price range
+
     let args = {};
     if (checked.length > 0) args.category = checked
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
@@ -179,7 +195,7 @@ exports.filteredProducts = async (req, res) => {
     console.log(err);
   }
 };
-
+// docs: total number of product
 exports.productsCount = async (req, res) => {
   try {
     const total = await Product.find({}).estimatedDocumentCount();
@@ -188,7 +204,7 @@ exports.productsCount = async (req, res) => {
     console.log(err);
   }
 };
-
+// docs: pagination
 exports.listProducts = async (req, res) => {
   try {
     const perPage = 6;
@@ -205,7 +221,7 @@ exports.listProducts = async (req, res) => {
     console.log(err);
   }
 };
-
+// docs: searching
 exports.productsSearch = async (req, res) => {
   try {
     const { keyword } = req.params;
@@ -222,6 +238,7 @@ exports.productsSearch = async (req, res) => {
   }
 };
 
+// docs: related products
 exports.relatedProducts = async (req, res) => {
   try {
     const { productId, categoryId } = req.params;
@@ -238,6 +255,8 @@ exports.relatedProducts = async (req, res) => {
     console.log(err);
   }
 };
+
+/*             uncomment below all codes to implement further
 
 exports.getToken = async (req, res) => {
   try {
@@ -357,3 +376,5 @@ exports.orderStatus = async (req, res) => {
     console.log(err);
   }
 };
+
+*/

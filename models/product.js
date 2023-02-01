@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema(
       lowercase: true,
     },
     description: {
-      type: {},
+      type: {}, //string send korleo hobe //rich text editor er jonne {}
       required: true,
       maxlength: 2000,
     },

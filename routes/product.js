@@ -23,12 +23,19 @@ const {
   orderStatus,
 } =require("../controllers/product.js");
 
-router.post("/product", requireSignin, isAdmin, formidable(), create);
+router.post("/product", requireSignin, isAdmin, formidable(), create);//data form-data dea send korte hobe
+//see all products
 router.get("/products", list);
-router.get("/product/:slug", read);
+//see specific products
+router.get("/product/:slug", read); //slug ta k postman theke pathanor time a double quote dite hobe na
+//get specific product photo
 router.get("/product/photo/:productId", photo);
+//delete specific product
 router.delete("/product/:productId", requireSignin, isAdmin, remove);
+//update specific product
 router.put("/product/:productId", requireSignin, isAdmin, formidable(), update);
+
+
 router.post("/filtered-products", filteredProducts);
 router.get("/products-count", productsCount);
 router.get("/list-products/:page", listProducts);

@@ -93,14 +93,18 @@ exports.read = async (req, res) => {
   }
 };
 
+//docs: products under a specific category
 exports.productsByCategory = async (req, res) => {
+  //req.params dea slug dewa hobe
   try {
-    const category = await Category.findOne({ slug: req.params.slug });
+    const category = await Category.findOne({ slug: req.params.slug }); //slug dea then category ber korte hobe.
+    //category model onujayie category schema te ache category name and slug.
     const products = await Product.find({ category }).populate("category");
+    // Product model a category hoitice Category model er objectId. so search er time a full category dea e query kora jasse. nahole hoyto category._id dea kortam
 
     res.json({
-      category,
-      products,
+      category, //kon category seta send korbo
+      products, //oi category er under a kotogulo product ase oigulo send korbo
     });
   } catch (err) {
     console.log(err);
