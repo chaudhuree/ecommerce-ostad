@@ -105,10 +105,11 @@ exports.secret = async (req, res) => {
   res.json({ currentUser: req.user });
 };
 
+// docs: update profile 
 exports.updateProfile = async (req, res) => {
   try {
     const { name, password, address } = req.body;
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id); //req.user._id comes from authmiddleware
     
    
     // check password length
@@ -130,6 +131,9 @@ exports.updateProfile = async (req, res) => {
       { new: true } 
     );
 
+    //we will not send the password as fontend response
+    //thats why after getting the updated data we will make updated.password undefined
+    //by this way if we now send upadated as response , fontend user will not get the hashed password
     updated.password = undefined;
     res.json(updated);
   } catch (err) {

@@ -1,0 +1,22 @@
+//now here we will do update related task for user profile
+
+1. create controller updateProfile
+2. create route for updateProfile router.put("/profile", requireSignin, updateProfile);
+3. code into updateProfile
+  take input from postman/user site,
+  find user by find method and get by id(we will get id from requireSignin middleware),
+  update user by update method,
+  save user by save method,
+  send response to user but without password.
+  so we made updated.password = undefined.
+  finish updating user profile.
+
+// now we will work on category
+1. create category model --> Category
+2. create category controller --> create
+3. create category route --> router.post("/category", requireSignin, isAdmin, create);
+4. get category name from user
+5. when creating category slugify category name and store it.
+   here we will do some validation like if same category exists then we will return
+    error message to user.
+
