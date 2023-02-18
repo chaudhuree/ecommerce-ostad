@@ -11,3 +11,4 @@
 - create jumbotron component and use them in all pages with props
 
 - create registration from
+- install required packages react-hot-toast and axos
