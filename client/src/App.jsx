@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 // - pages
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
      <Router>
         <Menu/>
+        <Toaster/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>

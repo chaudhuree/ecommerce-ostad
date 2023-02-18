@@ -1,31 +1,41 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import toast, { Toaster } from "react-hot-toast";
 import Jumbotron from '../components/cards/Jumbotron';
-
 
 export default function Register() {
     // state
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+   
     const handleSubmit=async (e)=>{
         e.preventDefault();
-        console.log(process.env.REACT_APP_API)
-        // try {
-        //   const { data } = await axios.post(`${process.env.REACT_APP_API}/register`, {
-        //     name,
-        //     email,
-        //     password,
-        //   });
-        //   console.log(data);
-        //   toast.success("Registration success. Please login.");
-        // } catch (err) {
-        //   console.log(err);
-        //   toast.error("Registration failed. Try again.");
-        // }
+       
+        try {
+          const { data } = await axios.post(`http://localhost:8000/api/v1/register`, {
+            name,
+            email,
+            password,
+          });
+          console.log(data);
+          if (data?.error) {
+            toast.error(data.error);
+          } else {
+            localStorage.setItem("auth", JSON.stringify(data));
+            setAuth({ ...auth, token: data.token, user: data.user });
+            toast.success("Registration successful");
+            navigate("/dashboard/user");
+          }
+        } catch (err) {
+          console.log(err);
+          toast.error("Registration failed. Try again.");
+        }
     }
   return (
     <div>
       <Jumbotron title="Register" subtitle="create new user account"></Jumbotron>
+      <Toaster/>
       <div className="container mt-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
