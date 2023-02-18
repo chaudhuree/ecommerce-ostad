@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import Jumbotron from '../components/cards/Jumbotron';
 
+
 export default function Register() {
     // state
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit=(e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault();
-        console.table(name,email,password);
+        console.log(process.env.REACT_APP_API)
+        // try {
+        //   const { data } = await axios.post(`${process.env.REACT_APP_API}/register`, {
+        //     name,
+        //     email,
+        //     password,
+        //   });
+        //   console.log(data);
+        //   toast.success("Registration success. Please login.");
+        // } catch (err) {
+        //   console.log(err);
+        //   toast.error("Registration failed. Try again.");
+        // }
     }
   return (
     <div>
