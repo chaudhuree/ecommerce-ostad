@@ -9,3 +9,5 @@
 - create Menu.jsx component in components/nav folder
 - use it in app.js Router
 - create jumbotron component and use them in all pages with props
+
+- create registration from
