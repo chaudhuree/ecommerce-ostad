@@ -21,11 +21,9 @@ export default function Register() {
           console.log(data);
           if (data?.error) {
             toast.error(data.error);
-          } else {
-            localStorage.setItem("auth", JSON.stringify(data));
-            setAuth({ ...auth, token: data.token, user: data.user });
+          } else {        
             toast.success("Registration successful");
-            navigate("/dashboard/user");
+
           }
         } catch (err) {
           console.log(err);
