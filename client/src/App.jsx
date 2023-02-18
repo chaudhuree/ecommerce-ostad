@@ -2,9 +2,9 @@ import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 // - pages
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
 
 // - components
 import Menu from './components/nav/Menu';

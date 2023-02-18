@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
-import Jumbotron from '../components/cards/Jumbotron';
+import Jumbotron from '../../components/cards/Jumbotron';
 
 export default function Login() {
   // state
