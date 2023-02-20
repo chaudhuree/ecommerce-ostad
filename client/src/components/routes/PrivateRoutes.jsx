@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAuth } from '../../context/auth'
+import Loading from './Loading'
 
 export default function PrivateRoutes() {
   const [auth, setAuth] = useAuth()
@@ -14,5 +15,5 @@ export default function PrivateRoutes() {
     }
   }, [auth?.token])
 
-  return ok ? <Outlet /> : <div>Not authorized</div>
+  return ok ? <Outlet /> : <Loading />
 }
