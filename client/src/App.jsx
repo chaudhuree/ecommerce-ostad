@@ -9,21 +9,35 @@ import Dashboard from './pages/user/Dashboard';
 
 // - components
 import Menu from './components/nav/Menu';
+import PrivateRoutes from './components/routes/PrivateRoutes';
+
+// testing purpose route element
+const Testing = () => {
+  return (
+    <div>Testing</div>
+  )
+}
+
 function App() {
-  
+
 
   return (
     <div className="App">
-     <Router>
-        <Menu/>
-        <Toaster/>
+      <Router>
+        <Menu />
+        <Toaster />
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/register" element={<Register/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          // protected routes
+          <Route path="/dashboard" element={<PrivateRoutes />}>
+            <Route path="" element={<Dashboard />} /> //now the route is just /dashboard as we left the path is empty
+            <Route path="testing" element={<Testing />} /> //now the route will be /dashboard/testing
+
+          </Route>
         </Routes>
-     </Router>
+      </Router>
     </div>
   )
 }
