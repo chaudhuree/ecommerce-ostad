@@ -23,6 +23,10 @@ export default function Login() {
     if (data?.error) {
       toast.error(data.error);
     } else {        
+      localStorage.setItem("auth", JSON.stringify(data));
+      // note: see in auth.jsx in context folder. data is collected and save in cotext there in useEffect .
+        // 🔽🔽this data is also set here manually though it is set in the auth context from the local storage.
+        // if we do not white the below code then we can not see the current change in the home page. then we will have to reload the page manually to see the changes
       setAuth({...auth,user: data?.user,token: data.token });
       toast.success("Login successful");
 
