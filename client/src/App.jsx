@@ -5,6 +5,7 @@ import './App.css';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import Dashboard from './pages/user/Dashboard';
 
 // - components
@@ -36,6 +37,7 @@ function App() {
             <Route path="testing" element={<Testing />} /> //now the route will be /dashboard/testing
 
           </Route>
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </Router>
     </div>
