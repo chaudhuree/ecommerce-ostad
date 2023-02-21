@@ -11,11 +11,13 @@ export default function PrivateRoutes() {
   // server side checking
   useEffect(() => {
     const authCheck = async () => {
-      const { data } = await axios.get("http://localhost:8000/api/v1/auth-check",{
-        headers:{
-          Authorization: auth?.token,
-        }
-      });
+      // const { data } = await axios.get("http://localhost:8000/api/v1/auth-check",{
+      //   headers:{
+      //     Authorization: auth?.token,
+      //   }
+      // });
+      // after setting axios config in auth context
+      const { data } = await axios.get("/auth-check");
       if (data.login) {
         setLogin(true);
       } else {
