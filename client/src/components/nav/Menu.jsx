@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 
 export default function Menu() {
@@ -9,6 +10,7 @@ export default function Menu() {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
     // window.location.reload();
+    toast.success('Logout successful')
     Navigate('/login')
   }
   return (
@@ -31,7 +33,7 @@ export default function Menu() {
             </a>
             <ul className="dropdown-menu text-center" >
               <li>
-                <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>Dashboard</NavLink>
+                <Link className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>Dashboard</Link>
               </li>
               <li><hr className="dropdown-divider" /></li>
               <li className="dropdown-item">

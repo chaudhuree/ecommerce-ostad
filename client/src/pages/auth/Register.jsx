@@ -13,7 +13,7 @@ export default function Register() {
   // context hooks
   const [auth, setAuth] = useAuth()
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
 
