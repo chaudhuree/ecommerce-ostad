@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from 'react-router-dom';
 import Jumbotron from '../../components/cards/Jumbotron';
 import { useAuth } from '../../context/auth';
-import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
   // state
@@ -14,6 +14,7 @@ export default function Login() {
   // context hooks
   const [auth,setAuth]=useAuth()
   const navigate=useNavigate()
+  const location=useLocation()
   const handleSubmit =async (e) => {
     e.preventDefault();
     try {
@@ -31,7 +32,7 @@ export default function Login() {
         // if we do not white the below code then we can not see the current change in the home page. then we will have to reload the page manually to see the changes
       setAuth({...auth,user: data?.user,token: data.token });
       toast.success("Login successful");
-      navigate('/')
+      navigate(location.state || '/dashboard')
 
     }
       

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function Loading() {
@@ -7,6 +7,9 @@ export default function Loading() {
   const [count, setCount] = useState(3);
   // hooks
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname);
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -14,7 +17,7 @@ export default function Loading() {
     }, 1000);
     // redirect once count is equal to 0
     count === 0 &&
-      navigate('/');
+      navigate('/login', { state: location.pathname });
     // cleanup
     return () => clearInterval(interval);
   }, [count]);
