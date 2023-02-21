@@ -32,7 +32,7 @@ export default function Login() {
         // if we do not white the below code then we can not see the current change in the home page. then we will have to reload the page manually to see the changes
       setAuth({...auth,user: data?.user,token: data.token });
       toast.success("Login successful");
-      navigate(location.state || '/dashboard')
+      navigate(location.state || `/dashboard/${data?.user?.role === 1 ? "admin" : "user"}`)
 
     }
       

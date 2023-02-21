@@ -17,17 +17,30 @@ export default function Menu() {
         <li className="nav-item">
           <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
         </li>
-        {!auth?.user ? (<>
+        {!auth?.user ? (<div className='d-flex justify-content-between'>
           <li className="nav-item">
             <NavLink className="nav-link" to="/register">Registration</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/login">Login</NavLink>
           </li>
-        </>) : (
-          <li className="nav-item">
-            <a className="nav-link cursor_pointer" onClick={logout}>Logout</a>
-          </li>
+        </div>) : (
+          <div className="dropdown">
+            <a className="dropdown-toggle bg-info btn" data-bs-toggle="dropdown" aria-expanded="false">
+              {auth?.user?.name}
+            </a>
+            <ul className="dropdown-menu text-center" >
+              <li>
+                <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>Dashboard</NavLink>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li className="dropdown-item">
+                <a className="nav-link cursor_pointer" onClick={logout}>Logout</a>
+              </li>
+            </ul>
+          </div>
+
+
         )}
 
       </ul>

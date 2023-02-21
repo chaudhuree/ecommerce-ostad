@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 import Jumbotron from '../../components/cards/Jumbotron';
 import { useAuth } from '../../context/auth';
-import {useNavigate} from 'react-router-dom'
 
 export default function Register() {
   // state
@@ -33,7 +33,7 @@ export default function Register() {
         // if we do not white the below code then we can not see the current change in the home page. then we will have to reload the page manually to see the changes
         setAuth({ ...auth, token: data?.token, user: data?.user });
         toast.success("Registration successful");
-        navigate('/')
+        navigate('/dashboard/user')
 
       }
     } catch (err) {
