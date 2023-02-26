@@ -6,8 +6,8 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import Dashboard from './pages/user/Dashboard';
 import Secret from './pages/Secret';
+import Dashboard from './pages/user/Dashboard';
 
 // - components
 import Menu from './components/nav/Menu';
@@ -34,9 +34,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           // protected routes
           <Route path="/dashboard" element={<PrivateRoutes />}>
-            <Route path="" element={<Dashboard />} /> //now the route is just /dashboard as we left the path is empty
+            <Route path="user" element={<Dashboard />} /> //now the route is just /dashboard as we left the path is empty
             <Route path="testing" element={<Testing />} /> //now the route will be /dashboard/testing
             <Route path="secret" element={<Secret/>} />
+            <Route path="admin" element={<AdminDadhboard />} />
           </Route>
           <Route path="*" element={<NotFound/>} />
         </Routes>
