@@ -11,7 +11,7 @@
 - create jumbotron component and use them in all pages with props
 
 - create registration from
-- install required packages react-hot-toast and axos
+- install required packages react-hot-toast and axios
 
 - create Registration form code for backend submission and toast message
 - create login form and code for backend submission and toast message

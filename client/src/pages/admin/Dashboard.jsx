@@ -1,4 +1,5 @@
 import React from 'react'
+import Jumbotron from '../../components/cards/Jumbotron'
 import { useAuth } from '../../context/auth'
 
 export default function AdminDashboard() {

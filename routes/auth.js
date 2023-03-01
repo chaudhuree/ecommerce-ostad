@@ -14,6 +14,8 @@ const {
   updateProfile,
   getOrders,
   allOrders,
+  getAllUsers,
+  updateRole,
 } =require("../controllers/auth.js");
 
 router.post("/register", register);
@@ -30,4 +32,8 @@ router.get("/secret", requireSignin, isAdmin, secret);
 router.get("/orders", requireSignin, getOrders);
 router.get("/all-orders", requireSignin, isAdmin, allOrders);
 
+// get all users
+router.get("/all-users", requireSignin, isAdmin, getAllUsers);
+//change user role
+router.put("/admin/update-role", requireSignin, isAdmin, updateRole);
 module.exports= router;
