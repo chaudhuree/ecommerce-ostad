@@ -35,6 +35,9 @@ export default function Menu() {
               <li>
                 <Link className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>Dashboard</Link>
               </li>
+              {auth?.user?.role === 1 && <li>
+                <Link className="dropdown-item" to="dashboard/user-role">Users</Link>
+              </li>}
               <li><hr className="dropdown-divider" /></li>
               <li className="dropdown-item">
                 <a className="nav-link cursor_pointer" onClick={logout}>Logout</a>

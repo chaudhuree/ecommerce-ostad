@@ -5,3 +5,16 @@
 .cursor_pointer:hover {
   cursor: pointer;
 }
+.role_dropdown {
+  padding: 0 !important;
+  text-align: center !important;
+  border: 1px solid #0dcaf0 !important;
+}
+.role_dropdown:focus {
+  box-shadow: none !important;
+}
+.role_dropdown_btn:focus {
+  box-shadow: none !important;
+  font-weight: bolder !important;
+  
+}
