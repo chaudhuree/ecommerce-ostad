@@ -27,7 +27,7 @@ export default function Loading() {
       className="d-flex justify-content-center align-items-center"
       style={{ height: "90vh" }}
     >
-    <b>not authorized</b>: redirecting to home page in {count} seconds
+    <b>not authorized</b>: redirecting to login page in {count} seconds
     {/* can be used any kind of gif file here so that it shows animation */}
     </div>
   );

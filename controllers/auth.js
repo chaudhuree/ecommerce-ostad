@@ -1,8 +1,8 @@
-const User =require("../models/user.js");
-const { hashPassword, comparePassword } =require("../helpers/auth.js");
-const jwt =require("jsonwebtoken");
+const User = require("../models/user.js");
+const { hashPassword, comparePassword } = require("../helpers/auth.js");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const Order =require("../models/order.js");
+const Order = require("../models/order.js");
 
 
 //docs: registration
@@ -94,12 +94,12 @@ exports.login = async (req, res) => {
 };
 
 //docs: login status check
-exports.isLoginCheck=async(req,res)=>{
-  res.json({login:true})
+exports.isLoginCheck = async (req, res) => {
+  res.json({ login: true })
 }
 //docs: admin check
-exports.isAdminCheck=async(req,res)=>{
-  res.json({admin:true})
+exports.isAdminCheck = async (req, res) => {
+  res.json({ admin: true })
 }
 exports.secret = async (req, res) => {
   res.json({ currentUser: req.user });
@@ -110,8 +110,8 @@ exports.updateProfile = async (req, res) => {
   try {
     const { name, password, address } = req.body;
     const user = await User.findById(req.user._id); //req.user._id comes from authmiddleware
-    
-   
+
+
     // check password length
     if (password && password.length < 6) {
       return res.json({
@@ -128,7 +128,7 @@ exports.updateProfile = async (req, res) => {
         password: hashedPassword || user.password,
         address: address || user.address,
       },
-      { new: true } 
+      { new: true }
     );
 
     //we will not send the password as fontend response
@@ -163,3 +163,43 @@ exports.allOrders = async (req, res) => {
     console.log(err);
   }
 };
+// docs: get all users
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select("-password -address -createdAt -updatedAt");
+    res.json(users);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+// docs: update role
+exports.updateRole = async (req, res) => {
+  try {
+    const { email, setRole } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.json({ error: "User not found" });
+    }
+    if (setRole === "admin") {
+      const updated = await User.findByIdAndUpdate(
+        user._id,
+        {
+          role: 1,
+        },
+        { new: true }
+      );
+      res.json(updated);
+    } else {
+      const updated = await User.findByIdAndUpdate(
+        user._id,
+        {
+          role: 0,
+        },
+        { new: true }
+      );
+      res.json(updated);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}

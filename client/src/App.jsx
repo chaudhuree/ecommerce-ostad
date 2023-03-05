@@ -2,6 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 // - pages
+import AdminDadhboard from './pages/admin/Dashboard';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
@@ -36,10 +37,10 @@ function App() {
           <Route path="/dashboard" element={<PrivateRoutes />}>
             <Route path="user" element={<Dashboard />} /> //now the route is just /dashboard as we left the path is empty
             <Route path="testing" element={<Testing />} /> //now the route will be /dashboard/testing
-            <Route path="secret" element={<Secret/>} />
+            <Route path="secret" element={<Secret />} />
             <Route path="admin" element={<AdminDadhboard />} />
           </Route>
-          <Route path="*" element={<NotFound/>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </div>

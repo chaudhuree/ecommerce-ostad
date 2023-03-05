@@ -1,7 +1,14 @@
 import React from 'react'
+import Jumbotron from '../../components/cards/Jumbotron'
+import { useAuth } from '../../context/auth'
 
 export default function Dashboard() {
+  const [auth, setAuth] = useAuth()
   return (
-    <div>user Dashboard</div>
+    <>
+    <Jumbotron
+   title={`Hello ${auth?.user?.name}`}
+   subtitle="User Dashboard"
+ /></>
   )
 }
