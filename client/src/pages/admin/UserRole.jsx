@@ -1,17 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
-// import { toast } from 'react-hot-toast';
 
 export default function UserRole() {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
-  const [auth,setAuth] = useAuth()
-  const loggedInUsersEmail=auth?.user?.email
-  
+  const [auth, setAuth] = useAuth()
+  const loggedInUsersEmail = auth?.user?.email
+
   useEffect(() => {
     fetchAllUsers()
   }, [])
+  // fetch all users
   const fetchAllUsers = async () => {
     try {
       setLoading(true)
@@ -23,16 +24,18 @@ export default function UserRole() {
     }
   }
 
+  // change role function
   const handleAdmin = async (email, status) => {
-    
-  try {
-    const { data } = await axios.put('/admin/update-role', { email, setRole: status })
-    console.log(data)
-    fetchAllUsers()
-  } catch (error) {
-    console.log(error.message)
-  }
-    
+
+    try {
+      const { data } = await axios.put('/admin/update-role', { email, setRole: status })
+      fetchAllUsers()
+      toast.success(`${data?.name} is updated to ${data?.role === 1 ? `admin` : 'user'} now`)
+    } catch (error) {
+      console.log(error.message)
+    }
+  
+
   }
   return (
     <div className="container">
@@ -50,7 +53,7 @@ export default function UserRole() {
             </thead>
             <tbody>
 
-              {users.filter((person)=>person.email!=loggedInUsersEmail).map((user, index) => {
+              {users.filter((person) => person.email != loggedInUsersEmail).map((user, index) => {
                 return (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
