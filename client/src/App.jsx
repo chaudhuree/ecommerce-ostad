@@ -22,6 +22,9 @@ import PrivateRoutes from './components/routes/PrivateRoutes';
 import AdminCategory from './pages/admin/AdminCategory';
 import AdminProduct from './pages/admin/AdminProduct';
 
+//user routes
+import UserOrders from './pages/user/UserOrders';
+import UserProfile from './pages/user/UserProfile';
 // testing purpose route element
 const Testing = () => {
   return (
@@ -45,6 +48,10 @@ function App() {
            {/* user routes */}
           <Route path="/dashboard" element={<PrivateRoutes />}>
             <Route path="user" element={<Dashboard />} />
+            <Route path="user/profile" element={<UserProfile />} />
+            <Route path="user/orders" element={<UserOrders />} />
+
+
             {/*now the route is just /dashboard as we left the path is empty */}
             <Route path="testing" element={<Testing />} />
             {/*now the route will be /dashboard/testing*/}
