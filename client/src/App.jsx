@@ -13,8 +13,14 @@ import Dashboard from './pages/user/Dashboard';
 
 // - components
 import Menu from './components/nav/Menu';
+
+//protected routes
 import AdminRoute from './components/routes/AdminRoute';
 import PrivateRoutes from './components/routes/PrivateRoutes';
+
+//admin routes
+import AdminCategory from './pages/admin/AdminCategory';
+import AdminProduct from './pages/admin/AdminProduct';
 
 // testing purpose route element
 const Testing = () => {
@@ -48,6 +54,8 @@ function App() {
           {/* admin routes */}
           <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDadhboard />} />
+          <Route path="admin/category" element={<AdminCategory />} />
+          <Route path="admin/product" element={<AdminProduct />} />
           <Route path="user-role" element={<UserRole />} />
           </Route>
           <Route path="*" element={<NotFound />} />
