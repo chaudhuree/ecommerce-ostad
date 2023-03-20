@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
-export default function Loading() {
+export default function Loading({path="login"}) {
   // state
   const [count, setCount] = useState(3);
   // hooks
@@ -17,7 +17,7 @@ export default function Loading() {
     }, 1000);
     // redirect once count is equal to 0
     count === 0 &&
-      navigate('/login', { state: location.pathname });
+      navigate(`/${path}`, { state: location.pathname });
     // cleanup
     return () => clearInterval(interval);
   }, [count]);

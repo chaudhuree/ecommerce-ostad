@@ -36,5 +36,5 @@ export default function PrivateRoutes() {
   //   }
   // }, [auth?.token])
 
-  return login ? <Outlet /> : <Loading />
+  return login ? <Outlet /> : <Loading/>
 }
