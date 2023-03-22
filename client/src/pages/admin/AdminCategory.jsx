@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Divider, Modal } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,16 +11,17 @@ export default function AdminCategory() {
   // context
   const [auth, setAuth] = useAuth();
   // state
-  const [name, setName] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(null);
-  const [updatingName, setUpdatingName] = useState("");
+  const [name, setName] = useState(""); //for form value
+  const [categories, setCategories] = useState([]); //for getting data from server and store
+  const [visible, setVisible] = useState(false); //modal visibility
+  const [selected, setSelected] = useState(null); //to store the whole category to updae and deleting purpose
+  const [updatingName, setUpdatingName] = useState(""); //get the data from the form and set it to use the data while updating
 
   useEffect(() => {
     loadCategories();
   }, []);
 
+  //get the data from the server
   const loadCategories = async () => {
     try {
       const { data } = await axios.get("/categories");
@@ -29,7 +30,7 @@ export default function AdminCategory() {
       console.log(err);
     }
   };
-
+  //creating categories
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -46,7 +47,7 @@ export default function AdminCategory() {
       toast.error("Create category failed. Try again.");
     }
   };
-
+  //update category
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -67,7 +68,7 @@ export default function AdminCategory() {
       toast.error("Category may already exist. Try again.");
     }
   };
-
+  //delete category
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
@@ -107,13 +108,15 @@ export default function AdminCategory() {
               handleSubmit={handleSubmit}
             />
 
-            <hr />
+            <Divider orientation="center" dashed>
+              Categories:
+            </Divider>
 
             <div className="col">
               {categories?.map((c) => (
                 <button
                   key={c._id}
-                  className="btn btn-outline-primary m-3"
+                  className="btn btn-outline-success m-3"
                   onClick={() => {
                     setVisible(true);
                     setSelected(c);
@@ -126,7 +129,7 @@ export default function AdminCategory() {
             </div>
 
             <Modal
-              visible={visible}
+              open={visible}
               onOk={() => setVisible(false)}
               onCancel={() => setVisible(false)}
               footer={null}
