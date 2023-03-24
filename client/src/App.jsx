@@ -21,6 +21,8 @@ import PrivateRoutes from './components/routes/PrivateRoutes';
 //admin routes
 import AdminCategory from './pages/admin/AdminCategory';
 import AdminProduct from './pages/admin/AdminProduct';
+import AdminProducts from './pages/admin/AdminProducts';
+import AdminProductUpdate from './pages/admin/AdminProductUpdate';
 
 //user routes
 import UserOrders from './pages/user/UserOrders';
@@ -63,6 +65,8 @@ function App() {
           <Route path="admin" element={<AdminDadhboard />} />
           <Route path="admin/category" element={<AdminCategory />} />
           <Route path="admin/product" element={<AdminProduct />} />
+          <Route path="admin/products" element={<AdminProducts />} />
+          <Route path="admin/product/update/:slug" element={<AdminProductUpdate />} />
           <Route path="user-role" element={<UserRole />} />
           </Route>
           <Route path="*" element={<NotFound />} />

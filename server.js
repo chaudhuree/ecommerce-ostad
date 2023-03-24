@@ -15,8 +15,8 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(helmet())
-
+app.use(helmet({crossOriginResourcePolicy: false}))
+//ERR_BLOCKED_BY_RESPONSE.NotSameOrigin CORS Policy JavaScript
 
 // routes middleware
 readdirSync("./routes").map(r => app.use("/api/v1", require(`./routes/${r}`))) 
