@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../../context/auth";
-import Jumbotron from "../../components/cards/Jumbotron";
-import AdminMenu from "../../components/nav/AdminMenu";
-import axios from "axios";
 import { Select } from "antd";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Jumbotron from "../../components/cards/Jumbotron";
+import AdminMenu from "../../components/nav/AdminMenu";
+import { useAuth } from "../../context/auth";
 
+//antd component for form select
 const { Option } = Select;
 
 export default function AdminProduct() {
@@ -28,6 +29,7 @@ export default function AdminProduct() {
     loadCategories();
   }, []);
 
+  //categories is needed to use in the select option
   const loadCategories = async () => {
     try {
       const { data } = await axios.get("/categories");
@@ -37,10 +39,13 @@ export default function AdminProduct() {
     }
   };
 
+  //create the product
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      //as we used formidable in the backend, we need to use formdata
       const productData = new FormData();
+      //after creating FormData instance, we can append the data
       productData.append("photo", photo);
       productData.append("name", name);
       productData.append("description", description);
@@ -54,6 +59,7 @@ export default function AdminProduct() {
         toast.error(data.error);
       } else {
         toast.success(`"${data.name}" is created`);
+        //after creating the product navigate to products list page
         navigate("/dashboard/admin/products");
       }
     } catch (err) {
@@ -77,6 +83,10 @@ export default function AdminProduct() {
           <div className="col-md-9">
             <div className="p-3 mt-2 mb-2 h4 bg-light">Create Products</div>
 
+            {/*COMMENTS:
+              after selecting the data this part is used to preview the image
+            */}
+
             {photo && (
               <div className="text-center">
                 <img
@@ -90,6 +100,12 @@ export default function AdminProduct() {
 
             <div className="pt-2">
               <label className="btn btn-outline-secondary col-12 mb-3">
+
+                {/*COMMENTS:
+                  dynamically change the button text after selecting the image
+                  the input tag is hidden to show the label properly
+                */}
+
                 {photo ? photo.name : "Upload photo"}
                 <input
                   type="file"
@@ -125,6 +141,13 @@ export default function AdminProduct() {
               onChange={(e) => setPrice(e.target.value)}
             />
 
+            {/*
+            ##COMMENTS
+            - showSearch is used to search the category
+            but here the value is id so it is not working
+            - if i use vaue={c.name} then it will work  
+            */}
+
             <Select
               // showSearch
               bordered={false}
@@ -133,6 +156,12 @@ export default function AdminProduct() {
               placeholder="Choose category"
               onChange={(value) => setCategory(value)}
             >
+
+            {/*
+              ##COMMENTS:
+              value te category id pathano hoyeche cz category ta akta alada schema
+            */}
+
               {categories?.map((c) => (
                 <Option key={c._id} value={c._id}>
                   {c.name}
@@ -140,7 +169,14 @@ export default function AdminProduct() {
               ))}
             </Select>
 
-            <Select
+                {/*
+                  ## COMMENTS
+                  - here the value is 0 or 1
+                  - the data is saved as boolean in the database
+                  - so we need to use 0 or 1
+                */}
+            
+                <Select
               bordered={false}
               size="large"
               className="form-select mb-3"

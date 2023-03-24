@@ -49,10 +49,10 @@ export default function AdminProductUpdate() {
       setName(data.name);
       setDescription(data.description);
       setPrice(data.price);
-      setCategory(data.category._id);
+      setCategory(data.category._id); //category er id ta dite hobe cz aita alada schema
       setShipping(data.shipping);
       setQuantity(data.quantity);
-      setId(data._id);
+      setId(data._id); //ai id use kora hobe update korte and photo fetch er jonne
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +62,7 @@ export default function AdminProductUpdate() {
     e.preventDefault();
     try {
       const productData = new FormData();
-      photo && productData.append("photo", photo);
+      photo && productData.append("photo", photo); //new kore jodi photo select kora hoy then append kore dibo or ja ase tai hoile ai item er kono dorkar nai.
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
@@ -86,6 +86,7 @@ export default function AdminProductUpdate() {
 
   const handleDelete = async (req, res) => {
     try {
+      //alert to the user to get the confirmation
       let answer = window.confirm(
         "Are you sure you want to delete this product?"
       );
@@ -113,6 +114,12 @@ export default function AdminProductUpdate() {
           </div>
           <div className="col-md-9">
             <div className="p-3 mt-2 mb-2 h4 bg-light">Update Product</div>
+
+            {/*
+              #COMMENTS:
+              aikhane bepar hocce jodi photo select kora na hoy tahole photo state er value ta null or empty. so then (:) marka condition a jabe and id dea direct database theke data fetch kore ane preview ta dekhaibe.
+              but jodi photo select kora hoy then create product er moto kore URL.createObjectURL(photo) use kore photo ta preview kore dekhaibe.
+            */}
 
             {photo ? (
               <div className="text-center">
