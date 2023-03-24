@@ -11,11 +11,11 @@ export default function AdminCategory() {
   // context
   const [auth, setAuth] = useAuth();
   // state
-  const [name, setName] = useState(""); //for form value
-  const [categories, setCategories] = useState([]); //for getting data from server and store
+  const [name, setName] = useState(""); //for form value to create category
+  const [categories, setCategories] = useState([]); //for getting data from server and store it to have all the catefories to show in the page
   const [visible, setVisible] = useState(false); //modal visibility
-  const [selected, setSelected] = useState(null); //to store the whole category to updae and deleting purpose
-  const [updatingName, setUpdatingName] = useState(""); //get the data from the form and set it to use the data while updating
+  const [selected, setSelected] = useState(null); //to store the whole category to updae and deleting purpose.we need the category id to update it. we can use have the id from this then.
+  const [updatingName, setUpdatingName] = useState(""); //get the data from the form and set it to use the data while updating. 
 
   useEffect(() => {
     loadCategories();
