@@ -33,7 +33,7 @@ export default function Home() {
               New Arrivals
             </h2>
             <div className="row">
-              {products?.map((p) => (
+              {products?.slice(0,4).map((p) => (
                 <div className="col-md-3" key={p._id}>
                   <ProductCard p={p} />
                 </div>

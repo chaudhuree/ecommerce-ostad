@@ -30,9 +30,9 @@ export default function ProductCard({ p }) {
         <h5>{p?.name}</h5>
 
         <h4 className="fw-bold">
-          {p?.price?.toLocaleString("en-US", {
+          {p?.price?.toLocaleString("bn-BD", {
             style: "currency",
-            currency: "USD",
+            currency: "BDT",
           })}
         </h4>
 

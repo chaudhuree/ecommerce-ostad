@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Secret from './pages/Secret';
 import Dashboard from './pages/user/Dashboard';
+import Shop from "./pages/Shop";
 
 // - components
 import Menu from './components/nav/Menu';
@@ -44,6 +45,7 @@ function App() {
         <Toaster />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
            {/* protected routes */}
