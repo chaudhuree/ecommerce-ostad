@@ -1,6 +1,6 @@
-import { useSearch } from "../context/search";
-import ProductCard from "../components/cards/ProductCard";
 import Jumbotron from "../components/cards/Jumbotron";
+import ProductCard from "../components/cards/ProductCard";
+import { useSearch } from "../context/search";
 
 export default function Search() {
   const [values, setValues] = useSearch();
@@ -9,7 +9,7 @@ export default function Search() {
     <>
       <Jumbotron
         title="Search results"
-        subTitle={
+        subtitle={
           values?.results?.length < 1
             ? "No products found"
             : `Found ${values?.results?.length} products`
