@@ -35,6 +35,10 @@
 .ant-checkbox-wrapper:first-of-type {
   margin-left: 8px;
 }
+.form-control {
+  -webkit-box-shadow: none !important;
+  outline: -webkit-focus-ring-color auto 0px !important;
+}
 /* jumbotron animation color css */
 .jumbotron {
   /* width: 30wh; */

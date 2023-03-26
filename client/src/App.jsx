@@ -8,10 +8,10 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import Search from './pages/Search';
 import Secret from './pages/Secret';
-import Dashboard from './pages/user/Dashboard';
 import Shop from "./pages/Shop";
-
+import Dashboard from './pages/user/Dashboard';
 // - components
 import Menu from './components/nav/Menu';
 
@@ -28,6 +28,7 @@ import AdminProductUpdate from './pages/admin/AdminProductUpdate';
 //user routes
 import UserOrders from './pages/user/UserOrders';
 import UserProfile from './pages/user/UserProfile';
+
 // testing purpose route element
 const Testing = () => {
   return (
@@ -46,8 +47,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
            {/* protected routes */}
            {/* user routes */}
           <Route path="/dashboard" element={<PrivateRoutes />}>

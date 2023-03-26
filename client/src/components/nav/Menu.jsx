@@ -2,6 +2,7 @@ import React from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
+import Search from '../forms/Search';
 
 export default function Menu() {
   const [auth, setAuth] = useAuth()
@@ -25,6 +26,10 @@ export default function Menu() {
             SHOP
           </NavLink>
         </li>
+        {/*
+          search component
+        */}
+        <Search/>
 
 
         {!auth?.user ? (<div className='d-flex justify-content-between'>
