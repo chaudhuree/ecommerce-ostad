@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import Search from './pages/Search';
 import Secret from './pages/Secret';
 import Shop from "./pages/Shop";
+import ProductView from './pages/ProductView';
 import Dashboard from './pages/user/Dashboard';
 // - components
 import Menu from './components/nav/Menu';
@@ -47,6 +48,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:slug" element={<ProductView />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

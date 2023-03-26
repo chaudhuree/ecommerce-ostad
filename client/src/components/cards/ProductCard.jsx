@@ -1,4 +1,5 @@
 import { Badge } from "antd";
+import { Link } from "react-router-dom";
 //badge ribbon is used to show the sold and in stock status of the product
 
 export default function ProductCard({ p }) {
@@ -8,11 +9,10 @@ export default function ProductCard({ p }) {
     <div className="card mb-3 hoverable">
       <Badge.Ribbon text={`${p?.sold} sold`} color="red">
         <Badge.Ribbon
-          text={`${
-            p?.quantity >= 1
+          text={`${p?.quantity >= 1
               ? `${p?.quantity - p?.sold} in stock`
               : "Out of stock"
-          }`}
+            }`}
           placement="start"
           color="green"
         >
@@ -20,8 +20,8 @@ export default function ProductCard({ p }) {
             className="card-img-top"
             src={`http://localhost:8000/api/v1/product/photo/${p._id}`}
             alt={p.name}
-            style={{ height: "auto",width:"100%", objectFit: "cover" ,filter: "hue-rotate(180deg)"}}
-            
+            style={{ height: "auto", width: "100%", objectFit: "cover", filter: "hue-rotate(180deg)" }}
+
           />
         </Badge.Ribbon>
       </Badge.Ribbon>
@@ -40,18 +40,18 @@ export default function ProductCard({ p }) {
       </div>
 
       <div className="d-flex justify-content-between">
-        <button
-          className="btn btn-primary col card-button"
-          style={{ borderBottomLeftRadius: "5px" }}
-         
-        >
-          View Product
-        </button>
-
+        <Link to={`/product/${p.slug}`}>
+          <button
+            className="btn btn-primary col card-button"
+            style={{ borderBottomLeftRadius: "5px" }}
+          >
+            View Product
+          </button>
+        </Link>
         <button
           className="btn btn-outline-primary col card-button"
           style={{ borderBottomRightRadius: "5px" }}
-          
+
         >
           Add to Cart
         </button>
