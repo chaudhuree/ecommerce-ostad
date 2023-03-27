@@ -2,11 +2,16 @@ import React from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
+import useCategory from '../../hooks/useCategory';
 import Search from '../forms/Search';
 
 export default function Menu() {
+  // context
   const [auth, setAuth] = useAuth()
+  // hooks
+  const categories = useCategory()
   const Navigate = useNavigate()
+  // logout function
   const logout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
@@ -27,11 +32,40 @@ export default function Menu() {
           </NavLink>
         </li>
         {/*
+          categories dropdown
+        */}
+        <div className="dropdown" >
+          <a className="dropdown-toggle bg-warning btn" data-bs-toggle="dropdown" aria-expanded="false" role="button" id="categoryDropDown">
+            CATEGORIES
+          </a>
+          <ul
+            className="dropdown-menu text-center" aria-labelledby="categoryDropDown"
+          >
+            <div style={{ width: "250px", display: "flex", flexWrap: "wrap", justifyContent: "space-between",padding:"0 12px" }}>
+              <li>
+                <NavLink className="nav-link dropdown-item" to="/categories">
+                  All Categories
+                </NavLink>
+              </li>
+
+              {categories?.map((c) => (
+                <li key={c._id}>
+                  <NavLink className="nav-link dropdown-item" to={`/category/${c.slug}`}>
+                    {c.name}
+                  </NavLink>
+                </li>
+              ))}</div>
+
+          </ul>
+        </div>
+        {/*
           search component
         */}
-        <Search/>
+        <Search />
 
-
+        {/*
+          user dropdown
+        */}
         {!auth?.user ? (<div className='d-flex justify-content-between'>
 
           <li className="nav-item">
@@ -63,7 +97,7 @@ export default function Menu() {
               <li className="dropdown-item">
                 <a className="nav-link cursor_pointer" onClick={logout}>Logout</a>
               </li>
-              
+
             </ul>
           </div>
 

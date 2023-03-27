@@ -6,12 +6,14 @@ import AdminDadhboard from './pages/admin/AdminDashboard';
 import UserRole from './pages/admin/UserRole';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import CategoriesList from './pages/CategoriesList';
+import CategoryView from './pages/CategoryView';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import ProductView from './pages/ProductView';
 import Search from './pages/Search';
 import Secret from './pages/Secret';
 import Shop from "./pages/Shop";
-import ProductView from './pages/ProductView';
 import Dashboard from './pages/user/Dashboard';
 // - components
 import Menu from './components/nav/Menu';
@@ -50,6 +52,9 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:slug" element={<ProductView />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/categories" element={<CategoriesList />} />
+          <Route path="/category/:slug" element={<CategoryView />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
