@@ -1,13 +1,16 @@
+import { Badge } from 'antd';
 import React from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
+import { useCart } from '../../context/cart';
 import useCategory from '../../hooks/useCategory';
 import Search from '../forms/Search';
 
 export default function Menu() {
   // context
   const [auth, setAuth] = useAuth()
+  const [cart, setCart] = useCart()
   // hooks
   const categories = useCategory()
   const Navigate = useNavigate()
@@ -58,6 +61,20 @@ export default function Menu() {
 
           </ul>
         </div>
+        {/*
+          cart item
+        */}
+        <li className="nav-item mt-1">
+          <Badge
+            count={cart?.length >= 1 ? cart.length : 0}
+            offset={[-5, 11]}
+            showZero={true}
+          >
+            <NavLink className="nav-link" aria-current="page" to="/cart">
+              CART
+            </NavLink>
+          </Badge>
+        </li>
         {/*
           search component
         */}

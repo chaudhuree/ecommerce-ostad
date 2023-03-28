@@ -1,8 +1,12 @@
 import { Badge } from "antd";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/cart";
 //badge ribbon is used to show the sold and in stock status of the product
 
 export default function ProductCard({ p }) {
+  // context
+  const [cart, setCart] = useCart();
 
 
   return (
@@ -51,6 +55,10 @@ export default function ProductCard({ p }) {
         <button
           className="btn btn-outline-primary col card-button"
           style={{ borderBottomRightRadius: "5px" }}
+          onClick={() => {
+            setCart([...cart, p])
+            toast.success(`${p.name} added to cart`)
+          }}
 
         >
           Add to Cart
