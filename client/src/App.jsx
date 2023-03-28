@@ -6,6 +6,7 @@ import AdminDadhboard from './pages/admin/AdminDashboard';
 import UserRole from './pages/admin/UserRole';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import Cart from './pages/Cart';
 import CategoriesList from './pages/CategoriesList';
 import CategoryView from './pages/CategoryView';
 import Home from './pages/Home';
@@ -50,6 +51,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/product/:slug" element={<ProductView />} />
           <Route path="/search" element={<Search />} />
           <Route path="/categories" element={<CategoriesList />} />
