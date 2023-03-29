@@ -1,12 +1,15 @@
 .active {
+  border-bottom: 2px solid #00d0ff !important;
+}
+/* .active {
   background-color: #000000;
   color: #fff !important;
-}
-.active.cart {
+} */
+/* .active.cart {
   background-color: transparent !important;
   color: rgb(0, 208, 255) !important;
   font-weight: bold !important;
-}
+} */
 .cursor_pointer:hover {
   cursor: pointer;
 }
