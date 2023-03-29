@@ -25,8 +25,8 @@ export default function Cart() {
   return (
     <>
       <Jumbotron
-        title={`Hello ${auth?.token && auth?.user?.name}`}
-        subTitle={
+        title={`Hello ${auth?.token && auth?.user?.name},`}
+        subtitle={
           cart?.length
             ? `You have ${cart.length} items in the cart. ${auth?.token ? "" : "Please login to checkout"
             }`
@@ -71,6 +71,43 @@ export default function Cart() {
               Total / Address / Payments
               <hr />
               <h6>Total: {cartTotal()}</h6>
+              {auth?.user?.address ? (
+                <>
+                  <div className="mb-3">
+                    <hr />
+                    <h4>Delivery address:</h4>
+                    <h5>{auth?.user?.address}</h5>
+                  </div>
+                  <button
+                    className="btn btn-outline-warning"
+                    onClick={() => navigate("/dashboard/user/profile")}
+                  >
+                    Update address
+                  </button>
+                </>
+              ) : (
+                <div className="mb-3">
+                  {auth?.token ? (
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/dashboard/user/profile")}
+                    >
+                      Add delivery address
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-outline-danger mt-3"
+                      onClick={() =>
+                        navigate("/login", {
+                          state: "/cart",
+                        })
+                      }
+                    >
+                      Login to checkout
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
