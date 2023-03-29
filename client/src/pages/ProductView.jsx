@@ -9,8 +9,11 @@ import {
 } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import ProductCard from "../components/cards/ProductCard";
+import { useCart } from "../context/cart";
 
 export default function ProductView() {
+  // context
+  const [cart, setCart] = useCart();
   // state
   const [product, setProduct] = useState({});
   const [related, setRelated] = useState([]);
@@ -111,7 +114,9 @@ export default function ProductView() {
                 borderBottomLeftRadius: "5px",
               }}
               onClick={() => {
-                toast.success("Added to cart");
+                setCart([...cart, product])
+                localStorage.setItem("cart", JSON.stringify([...cart, product]))
+                toast.success(`${product.name} added to cart`)
               }}
             >
               Add to Cart

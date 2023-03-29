@@ -23,9 +23,9 @@ export default function Menu() {
     Navigate('/login')
   }
   return (
-    <div>
+    <>
 
-      <ul className="nav shadow-sm p-3 mb-3 d-flex justify-content-between">
+      <ul className="nav shadow-sm p-3 mb-3 d-flex justify-content-between sticky-top bg-light">
         <li className="nav-item">
           <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
         </li>
@@ -64,13 +64,13 @@ export default function Menu() {
         {/*
           cart item
         */}
-        <li className="nav-item mt-1">
+        <li className="nav-item mt-1 ">
           <Badge
             count={cart?.length >= 1 ? cart.length : 0}
             offset={[-5, 11]}
             showZero={true}
           >
-            <NavLink className="nav-link" aria-current="page" to="/cart">
+            <NavLink className="nav-link cart" aria-current="page" to="/cart">
               CART
             </NavLink>
           </Badge>
@@ -122,7 +122,7 @@ export default function Menu() {
         )}
 
       </ul>
-    </div>
+    </>
 
   )
 }

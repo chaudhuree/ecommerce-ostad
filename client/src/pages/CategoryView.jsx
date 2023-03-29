@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Jumbotron from "../components/cards/Jumbotron";
 import ProductCard from "../components/cards/ProductCard";
 
+
 export default function CategoryView() {
   // state
   const [products, setProducts] = useState([]);
