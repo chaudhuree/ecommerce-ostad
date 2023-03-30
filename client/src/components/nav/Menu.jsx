@@ -35,11 +35,11 @@ export default function Menu() {
               <NavLink className="nav-link" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/shop">SHOP</NavLink>
+              <NavLink className="nav-link" to="/shop">Shop</NavLink>
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="categoryDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                CATEGORIES
+                Categories
               </a>
               <ul className="dropdown-menu" aria-labelledby="categoryDropDown">
                 <div className="d-flex flex-wrap justify-content-between" style={{ width: "250px", padding: "0 12px" }}>
@@ -56,7 +56,7 @@ export default function Menu() {
             </li>
             <li className="nav-item">
               <Badge count={cart?.length >= 1 ? cart.length : 0} offset={[1, 9]} showZero>
-                <NavLink className="nav-link " style={{marginTop:"3px",marginBottom:"25px"}} to="/cart">CART</NavLink>
+                <NavLink className="nav-link " style={{ marginTop: "3px", marginBottom: "25px" }} to="/cart">Cart</NavLink>
               </Badge>
             </li>
           </ul>
@@ -68,7 +68,7 @@ export default function Menu() {
                 <NavLink className="nav-link" to="/login">Login</NavLink>
               </div>
             ) : (
-              <div className="dropdown" style={{marginLeft:"15px"}}>
+              <div className="dropdown" style={{ marginLeft: "15px" }}>
                 <a className="btn btn-info dropdown-toggle" href="#" role="button" id="userDropDown" data-bs-toggle="dropdown" aria-expanded="false">
                   {auth?.user?.name}
                 </a>
@@ -94,7 +94,6 @@ export default function Menu() {
         </div>
       </div>
     </nav>
-
   )
 }
 
@@ -200,3 +199,77 @@ export default function Menu() {
 //         )}
 
 //       </ul>
+
+
+
+// <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-3 sticky-top">
+//       <div className="container-fluid justify-content-between">
+
+//         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+//           <span className="navbar-toggler-icon"></span>
+//         </button>
+//         <div className="collapse navbar-collapse" id="navbarNav">
+//           <ul className="navbar-nav w-100">
+//             <li className="nav-item">
+//               <NavLink className="nav-link" to="/">Home</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" to="/shop">SHOP</NavLink>
+//             </li>
+//             <li className="nav-item dropdown">
+//               <a className="nav-link dropdown-toggle" href="#" id="categoryDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                 CATEGORIES
+//               </a>
+//               <ul className="dropdown-menu" aria-labelledby="categoryDropDown">
+//                 <div className="d-flex flex-wrap justify-content-between" style={{ width: "250px", padding: "0 12px" }}>
+//                   <li>
+//                     <NavLink className="dropdown-item" to="/categories">All Categories</NavLink>
+//                   </li>
+//                   {categories?.map((c) => (
+//                     <li key={c._id}>
+//                       <NavLink className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</NavLink>
+//                     </li>
+//                   ))}
+//                 </div>
+//               </ul>
+//             </li>
+//             <li className="nav-item">
+//               <Badge count={cart?.length >= 1 ? cart.length : 0} offset={[1, 9]} showZero>
+//                 <NavLink className="nav-link " style={{ marginTop: "3px", marginBottom: "25px" }} to="/cart">CART</NavLink>
+//               </Badge>
+//             </li>
+//           </ul>
+//           <div className="d-flex">
+//             <Search />
+//             {!auth?.user ? (
+//               <div className="d-flex">
+//                 <NavLink className="nav-link" to="/register">Registration</NavLink>
+//                 <NavLink className="nav-link" to="/login">Login</NavLink>
+//               </div>
+//             ) : (
+//               <div className="dropdown" style={{ marginLeft: "15px" }}>
+//                 <a className="btn btn-info dropdown-toggle" href="#" role="button" id="userDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+//                   {auth?.user?.name}
+//                 </a>
+//                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropDown">
+//                   <li>
+//                     <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>Dashboard</NavLink>
+//                   </li>
+//                   {auth?.user?.role === 1 && (
+//                     <li>
+//                       <NavLink className="dropdown-item" to="dashboard/user-role">Users</NavLink>
+//                     </li>
+//                   )}
+//                   <li>
+//                     <hr className="dropdown-divider" />
+//                   </li>
+//                   <li>
+//                     <a className="dropdown-item cursor-pointer" onClick={logout}>Logout</a>
+//                   </li>
+//                 </ul>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     </nav>

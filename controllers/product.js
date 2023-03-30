@@ -7,14 +7,14 @@ const Order = require("../models/order.js");
 const sgMail = require("@sendgrid/mail");
 
 
-sgMail.setApiKey(process.env.SENDGRID_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_KEY);
 
-// const gateway = new braintree.BraintreeGateway({
-//   environment: braintree.Environment.Sandbox,
-//   merchantId: process.env.BRAINTREE_MERCHANT_ID,
-//   publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-//   privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-// });
+const gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
 
 //docs: create product
 exports.create = async (req, res) => {
@@ -256,8 +256,7 @@ exports.relatedProducts = async (req, res) => {
   }
 };
 
-/*             uncomment below all codes to implement further
-
+// docs: braintree generate token 
 exports.getToken = async (req, res) => {
   try {
     gateway.clientToken.generate({}, function (err, response) {
@@ -272,57 +271,61 @@ exports.getToken = async (req, res) => {
   }
 };
 
-exports.processPayment = async (req, res) => {
-  try {
-    // console.log(req.body);
-    const { nonce, cart } = req.body;
+// docs: braintree payment
+// exports.processPayment = async (req, res) => {
+//   try {
+//     // console.log(req.body);
+//     const { nonce, cart } = req.body;
 
-    let total = 0;
-    cart.map((i) => {
-      total += i.price;
-    });
-    // console.log("total => ", total);
+//     let total = 0;
+//     cart.map((i) => {
+//       total += i.price;
+//     });
+//     // console.log("total => ", total);
 
-    let newTransaction = gateway.transaction.sale(
-      {
-        amount: total,
-        paymentMethodNonce: nonce,
-        options: {
-          submitForSettlement: true,
-        },
-      },
-      function (error, result) {
-        if (result) {
-          // res.send(result);
-          // create order
-          const order = new Order({
-            products: cart,
-            payment: result,
-            buyer: req.user._id,
-          }).save();
-          // decrement quantity
-          decrementQuantity(cart);
-          // const bulkOps = cart.map((item) => {
-          //   return {
-          //     updateOne: {
-          //       filter: { _id: item._id },
-          //       update: { $inc: { quantity: -0, sold: +1 } },
-          //     },
-          //   };
-          // });
+//     let newTransaction = gateway.transaction.sale(
+//       {
+//         amount: total,
+//         paymentMethodNonce: nonce,
+//         options: {
+//           submitForSettlement: true,
+//         },
+//       },
+//       function (error, result) {
+//         if (result) {
+//           // res.send(result);
+//           // create order
+//           const order = new Order({
+//             products: cart,
+//             payment: result,
+//             buyer: req.user._id,
+//           }).save();
+//           // decrement quantity
+//           decrementQuantity(cart);
+//           // const bulkOps = cart.map((item) => {
+//           //   return {
+//           //     updateOne: {
+//           //       filter: { _id: item._id },
+//           //       update: { $inc: { quantity: -0, sold: +1 } },
+//           //     },
+//           //   };
+//           // });
 
-          // Product.bulkWrite(bulkOps, {});
+//           // Product.bulkWrite(bulkOps, {});
 
-          res.json({ ok: true });
-        } else {
-          res.status(500).send(error);
-        }
-      }
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
+//           res.json({ ok: true });
+//         } else {
+//           res.status(500).send(error);
+//         }
+//       }
+//     );
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+
+/*             uncomment below all codes to implement further
 
 const decrementQuantity = async (cart) => {
   try {

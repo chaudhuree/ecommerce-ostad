@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Jumbotron from "../components/cards/Jumbotron";
 import ProductCardHorizontal from "../components/cards/ProductCardHorizontal";
+import UserCartSidebar from "../components/cards/UserCartSidebar";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 
@@ -65,50 +66,7 @@ export default function Cart() {
                 ))}
               </div>
             </div>
-
-            <div className="col-md-4 mb-5">
-              <h4>Your cart summary</h4>
-              Total / Address / Payments
-              <hr />
-              <h6>Total: {cartTotal()}</h6>
-              {auth?.user?.address ? (
-                <>
-                  <div className="mb-3">
-                    <hr />
-                    <h4>Delivery address:</h4>
-                    <h5>{auth?.user?.address}</h5>
-                  </div>
-                  <button
-                    className="btn btn-outline-warning"
-                    onClick={() => navigate("/dashboard/user/profile")}
-                  >
-                    Update address
-                  </button>
-                </>
-              ) : (
-                <div className="mb-3">
-                  {auth?.token ? (
-                    <button
-                      className="btn btn-outline-warning"
-                      onClick={() => navigate("/dashboard/user/profile")}
-                    >
-                      Add delivery address
-                    </button>
-                  ) : (
-                    <button
-                      className="btn btn-outline-danger mt-3"
-                      onClick={() =>
-                        navigate("/login", {
-                          state: "/cart",
-                        })
-                      }
-                    >
-                      Login to checkout
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
+            <UserCartSidebar/>
           </div>
         </div>
       )}
