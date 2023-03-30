@@ -7,7 +7,7 @@ const Order = require("../models/order.js");
 const sgMail = require("@sendgrid/mail");
 
 
-// sgMail.setApiKey(process.env.SENDGRID_KEY);
+sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 const gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
@@ -311,16 +311,6 @@ exports.processPayment = async (req, res) => {
           }).save();
           // decrement quantity
           decrementQuantity(cart);
-          // const bulkOps = cart.map((item) => {
-          //   return {
-          //     updateOne: {
-          //       filter: { _id: item._id },
-          //       update: { $inc: { quantity: -0, sold: +1 } },
-          //     },
-          //   };
-          // });
-
-          // Product.bulkWrite(bulkOps, {});
 
           res.json({ success: true });
         } else {
@@ -364,41 +354,6 @@ exports.orderStatus = async (req, res) => {
     // send email
 
     // // prepare email
-    // const emailData = {
-    //   from: process.env.EMAIL_FROM,
-    //   to: order.buyer.email,
-    //   subject: "Order status",
-    //   html: `
-    //     <h1>Hi ${order.buyer.name}, Your order's status is: <span style="color:red;">${order.status}</span></h1>
-    //     <p>Visit <a href="${process.env.CLIENT_URL}/dashboard/user/orders">your dashboard</a> for more details</p>
-    //   `,
-    // };
-
-    // try {
-    //   await sgMail.send(emailData);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
-    res.json(order);
-  } catch (err) {
-    console.log(err);
-  }
-};
-/*             uncomment below all codes to implement further
-
-exports.orderStatus = async (req, res) => {
-  try {
-    const { orderId } = req.params;
-    const { status } = req.body;
-    const order = await Order.findByIdAndUpdate(
-      orderId,
-      { status },
-      { new: true }
-    ).populate("buyer", "email name");
-    // send email
-
-    // prepare email
     const emailData = {
       from: process.env.EMAIL_FROM,
       to: order.buyer.email,
@@ -420,5 +375,3 @@ exports.orderStatus = async (req, res) => {
     console.log(err);
   }
 };
-
-*/
