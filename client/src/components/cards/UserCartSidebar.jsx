@@ -1,6 +1,7 @@
 import axios from 'axios';
 import DropIn from 'braintree-web-drop-in-react';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 import { useCart } from '../../context/cart';
@@ -11,6 +12,7 @@ export default function UserCartSidebar() {
   //state
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
+  const [loading, setLoading] = useState(false);
   // hooks
   const navigate = useNavigate();
   // braintree getTOken
@@ -38,6 +40,30 @@ export default function UserCartSidebar() {
       style: "currency",
       currency: "BDT",
     });
+  };
+  // handle buy
+  const handleBuy = async () => {
+    try {
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      //   console.log("nonce => ", nonce);
+      const { data } = await axios.post("/braintree/payment", {
+        nonce,
+        cart,
+      });
+        // console.log("handle buy response => ", data);
+      if (data.success) {
+        setLoading(false);
+        localStorage.removeItem("cart");
+        setCart([]);
+        navigate("/dashboard/user/orders");
+        toast.success("Payment successful");
+      }
+   
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
   };
   return (
     <div className="col-md-4 mb-5">
@@ -84,23 +110,29 @@ export default function UserCartSidebar() {
       )}
 
       <div className="mt-3">
-      {!clientToken || !cart?.length ? (
-        ""
-      ) : (
-        <>
-          <DropIn
-            options={{
-              authorization: clientToken,
-              paypal: {
-                flow: "vault",
-              },
-            }}
-            onInstance={(instance) => setInstance(instance)}
-          />
-          
-        </>
-      )}
-    </div>
+        {!clientToken || !cart?.length ? (
+          ""
+        ) : (
+          <>
+            <DropIn
+              options={{
+                authorization: clientToken,
+                paypal: {
+                  flow: "vault",
+                },
+              }}
+              onInstance={(instance) => setInstance(instance)}
+            />
+            <button
+              onClick={handleBuy}
+              className="btn btn-primary col-12 mt-2"
+              disabled={!auth?.user?.address || !instance || loading}
+            >
+              {loading ? "Processing..." : "Buy"}
+            </button>
+          </>
+        )}
+      </div>
     </div>
   )
 }

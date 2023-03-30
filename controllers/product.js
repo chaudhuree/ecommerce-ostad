@@ -272,57 +272,57 @@ exports.getToken = async (req, res) => {
 };
 
 // docs: braintree payment
-// exports.processPayment = async (req, res) => {
-//   try {
-//     // console.log(req.body);
-//     const { nonce, cart } = req.body;
+exports.processPayment = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { nonce, cart } = req.body;
 
-//     let total = 0;
-//     cart.map((i) => {
-//       total += i.price;
-//     });
-//     // console.log("total => ", total);
+    let total = 0;
+    cart.map((i) => {
+      total += i.price;
+    });
+    // console.log("total => ", total);
 
-//     let newTransaction = gateway.transaction.sale(
-//       {
-//         amount: total,
-//         paymentMethodNonce: nonce,
-//         options: {
-//           submitForSettlement: true,
-//         },
-//       },
-//       function (error, result) {
-//         if (result) {
-//           // res.send(result);
-//           // create order
-//           const order = new Order({
-//             products: cart,
-//             payment: result,
-//             buyer: req.user._id,
-//           }).save();
-//           // decrement quantity
-//           decrementQuantity(cart);
-//           // const bulkOps = cart.map((item) => {
-//           //   return {
-//           //     updateOne: {
-//           //       filter: { _id: item._id },
-//           //       update: { $inc: { quantity: -0, sold: +1 } },
-//           //     },
-//           //   };
-//           // });
+    let newTransaction = gateway.transaction.sale(
+      {
+        amount: total,
+        paymentMethodNonce: nonce,
+        options: {
+          submitForSettlement: true,
+        },
+      },
+      function (error, result) {
+        if (result) {
+          // res.send(result);
+          // create order
+          const order = new Order({
+            products: cart,
+            payment: result,
+            buyer: req.user._id,
+          }).save();
+          // decrement quantity
+          // decrementQuantity(cart);
+          // const bulkOps = cart.map((item) => {
+          //   return {
+          //     updateOne: {
+          //       filter: { _id: item._id },
+          //       update: { $inc: { quantity: -0, sold: +1 } },
+          //     },
+          //   };
+          // });
 
-//           // Product.bulkWrite(bulkOps, {});
+          // Product.bulkWrite(bulkOps, {});
 
-//           res.json({ ok: true });
-//         } else {
-//           res.status(500).send(error);
-//         }
-//       }
-//     );
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+          res.json({ success: true });
+        } else {
+          res.status(500).send(error);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 
 /*             uncomment below all codes to implement further
