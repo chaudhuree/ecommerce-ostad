@@ -141,17 +141,19 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
+// docs: get user orders for user view
 exports.getOrders = async (req, res) => {
   try {
     const orders = await Order.find({ buyer: req.user._id })
       .populate("products", "-photo")
-      .populate("buyer", "name");
+      .populate("buyer", "name").sort({ createdAt: "-1" });
     res.json(orders);
   } catch (err) {
     console.log(err);
   }
 };
 
+// docs: get all orders for admin
 exports.allOrders = async (req, res) => {
   try {
     const orders = await Order.find({})

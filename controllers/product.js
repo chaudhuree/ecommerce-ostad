@@ -272,6 +272,15 @@ exports.getToken = async (req, res) => {
 };
 
 // docs: braintree payment
+/*
+what is going on here
+1. we are getting nonce from frontend
+2. we are sending full cart to backend
+3. we are calculating total price
+4. we are sending total price and nonce to braintree
+5. if payment is successful then we are creating order
+6. we are decrementing quantity
+*/
 exports.processPayment = async (req, res) => {
   try {
     // console.log(req.body);
@@ -301,7 +310,7 @@ exports.processPayment = async (req, res) => {
             buyer: req.user._id,
           }).save();
           // decrement quantity
-          // decrementQuantity(cart);
+          decrementQuantity(cart);
           // const bulkOps = cart.map((item) => {
           //   return {
           //     updateOne: {
@@ -324,9 +333,6 @@ exports.processPayment = async (req, res) => {
   }
 };
 
-
-/*             uncomment below all codes to implement further
-
 const decrementQuantity = async (cart) => {
   try {
     // build mongodb query
@@ -345,6 +351,8 @@ const decrementQuantity = async (cart) => {
     console.log(err);
   }
 };
+
+/*             uncomment below all codes to implement further
 
 exports.orderStatus = async (req, res) => {
   try {
