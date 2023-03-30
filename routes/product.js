@@ -20,7 +20,7 @@ const {
   relatedProducts,
   getToken,
   processPayment,
-  // orderStatus,
+  orderStatus,
 } =require("../controllers/product.js");
 
 router.post("/product", requireSignin, isAdmin, formidable(), create);//data form-data dea send korte hobe
@@ -44,6 +44,6 @@ router.get("/related-products/:productId/:categoryId", relatedProducts);
 
 router.get("/braintree/token", getToken);
 router.post("/braintree/payment", requireSignin, processPayment);
-// router.put("/order-status/:orderId", requireSignin, isAdmin, orderStatus);
+router.put("/order-status/:orderId", requireSignin, isAdmin, orderStatus);
 
 module.exports=router;

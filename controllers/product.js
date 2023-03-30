@@ -352,6 +352,39 @@ const decrementQuantity = async (cart) => {
   }
 };
 
+exports.orderStatus = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    ).populate("buyer", "email name");
+    // send email
+
+    // // prepare email
+    // const emailData = {
+    //   from: process.env.EMAIL_FROM,
+    //   to: order.buyer.email,
+    //   subject: "Order status",
+    //   html: `
+    //     <h1>Hi ${order.buyer.name}, Your order's status is: <span style="color:red;">${order.status}</span></h1>
+    //     <p>Visit <a href="${process.env.CLIENT_URL}/dashboard/user/orders">your dashboard</a> for more details</p>
+    //   `,
+    // };
+
+    // try {
+    //   await sgMail.send(emailData);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    res.json(order);
+  } catch (err) {
+    console.log(err);
+  }
+};
 /*             uncomment below all codes to implement further
 
 exports.orderStatus = async (req, res) => {

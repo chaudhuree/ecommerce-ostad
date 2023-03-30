@@ -28,6 +28,7 @@ import AdminCategory from './pages/admin/AdminCategory';
 import AdminProduct from './pages/admin/AdminProduct';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminProductUpdate from './pages/admin/AdminProductUpdate';
+import AdminOrders from './pages/admin/AdminOrders';
 
 //user routes
 import UserOrders from './pages/user/UserOrders';
@@ -81,6 +82,7 @@ function App() {
           <Route path="admin/product" element={<AdminProduct />} />
           <Route path="admin/products" element={<AdminProducts />} />
           <Route path="admin/product/update/:slug" element={<AdminProductUpdate />} />
+          <Route path="admin/orders" element={<AdminOrders />} />
           <Route path="user-role" element={<UserRole />} />
           </Route>
           <Route path="*" element={<NotFound />} />
